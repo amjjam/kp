@@ -16,7 +16,7 @@
 ;        }
 ;-
 
-function loadKpTab,file
+function loadKpTab,filename
 
   spawn,'wc '+filename,result
   n=long((str_sep(strtrim(strcompress(result),2),' '))[0])-4
