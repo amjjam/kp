@@ -113,6 +113,21 @@ KPV &KPS::operator[](int i){
 
 
 /*=============================================================================
+  int find(Time &t) - find index corresponding to time. Find the
+  largest index which has time less than or equal to t.
+  
+  -1 if all times are larger than t  
+  ============================================================================*/
+int KPS::find(Time &t){
+  for(unsigned int i=0;i<kp.size();i++)
+    if(kp[i].getTime().get()>t.get())
+      break;
+  
+  return i-1;
+}
+
+
+/*=============================================================================
   void load(std::string file) - load a WDC file format
   ============================================================================*/
 void KPS::load(std::string file){
