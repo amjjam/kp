@@ -10,7 +10,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../lib/time/include/Time.H"
+#include <Time.H>
 
 class KPV{
 public:
