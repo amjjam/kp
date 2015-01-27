@@ -4,6 +4,8 @@
  * also be initialized from a sequence of World Data Center Kp files.         *
  ******************************************************************************/
 
+#include "../include/kp.H"
+
 /*============================================================================
   ============================================================================
   class KPV
@@ -24,7 +26,7 @@ KPV::KPV(Time t, float kp){
   yr/mo/dy hr time format and float kp value.
   ============================================================================*/
 KPV::KPV(int yr, int mo, int dy, int hr, float kp){
-  t=Time(yr,mo,dy,hr);
+  t.set(yr,mo,dy,hr);
   KPV::kp=kp;
 }
 
@@ -47,10 +49,10 @@ KPV::~KPV(){
 
 
 /*=============================================================================
-  double getTime() - return time as a double
+  Time &getTime() - return time as a double
   ============================================================================*/
-double KPV::getTime(){
-  return t.get();
+Time &KPV::getTime(){
+  return t;
 }
 
 
@@ -81,8 +83,32 @@ KPS::KPS(std::string f){
   files
   ============================================================================*/
 KPS::KPS(std::vector<std::string> f){
-  for(int i=0;i<f.size();i++)
+  for(unsigned int i=0;i<f.size();i++)
     load(f[i]);
+}
+
+
+/*============================================================================
+  ~KPS() - destructor
+  ===========================================================================*/
+KPS::~KPS(){
+
+}
+
+
+/*=============================================================================
+  int size() - returns the number of KPV data points in the object
+  ============================================================================*/
+int KPS::size(){
+  return kp.size();
+}
+
+
+/*=============================================================================
+  KPV &operator[](int i) - get the i'th KPV element
+  ============================================================================*/
+KPV &KPS::operator[](int i){
+  return kp[i];
 }
 
 
@@ -90,24 +116,26 @@ KPS::KPS(std::vector<std::string> f){
   void load(std::string file) - load a WDC file format
   ============================================================================*/
 void KPS::load(std::string file){
-  std::ifstream f(file);
+  std::ifstream f(file.c_str());
   std::string l;
   float kpv;
+  int yr,mo,dy;
 
-  while(f){
-    std::getline(f,l);
-    yr=stoi(l.substr(0,2));
+  std::getline(f,l);
+  do{
+    yr=atoi(l.substr(0,2).c_str());
     if(yr>50)
       yr+=1900;
     else
       yr+=2000;
-    mo=stoi(l.substr(2,2));
-    dy=stoi(l.substr(4,2));
+    mo=atoi(l.substr(2,2).c_str());
+    dy=atoi(l.substr(4,2).c_str());
     for(int i=0;i<8;i++){
-      kpv=(float)stoi(l.substr(13+i*2,2))/10;
+      kpv=(float)atoi(l.substr(12+i*2,2).c_str())/10;
       kp.push_back(KPV(yr,mo,dy,i*3,kpv));
     }
-  }
+    std::getline(f,l);
+  }while(l.size()>0);
 }
 
 
@@ -115,7 +143,7 @@ void KPS::load(std::string file){
   void load(std::vector<std::string> files) - loads multiple files, in
   the sequence they are listed in the string vector
   ============================================================================*/
-void KPS::load(std::string files){
-  for(int i=0;i<files.size();i++)
+void KPS::load(std::vector<std::string> files){
+  for(unsigned int i=0;i<files.size();i++)
     load(files[i]);
 }

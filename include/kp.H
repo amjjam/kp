@@ -5,30 +5,37 @@
 #ifndef _KP_H_
 #define _HP_H_
 
-#include "Time.H"
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+
+#include "../lib/time/include/Time.H"
 
 class KPV{
 public:
+  KPV(Time t, float kp);
   KPV(double t, float kp);
   KPV(int yr, int mo, int dy, int hr, float kp);
-  ~KP();
-  double getTime();
+  ~KPV();
+  Time &getTime();
   float getKp();
 private:
   Time t;
   float kp;
 };
 
-};
 
 class KPS{
 public:
   KPS(std::string f);
   KPS(std::vector<std::string> f);
   ~KPS();
-  void size();
-  KPV &get(int i);
+  int size();
+  KPV &operator[](int i);
 private:
+  void load(std::string);
+  void load(std::vector<std::string>);
   std::vector<class KPV> kp;
 };
 
