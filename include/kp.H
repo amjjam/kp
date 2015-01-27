@@ -10,18 +10,18 @@
 #include <iostream>
 #include <fstream>
 
-#include <Time.H>
+#include <aTime.H>
 
 class KPV{
 public:
-  KPV(Time t, float kp);
+  KPV(aTime t, float kp);
   KPV(double t, float kp);
   KPV(int yr, int mo, int dy, int hr, float kp);
   ~KPV();
-  Time &getTime();
+  aTime &getTime();
   float getKp();
 private:
-  Time t;
+  aTime t;
   float kp;
 };
 

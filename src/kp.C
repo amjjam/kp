@@ -13,9 +13,9 @@
   ============================================================================*/
 
 /*=============================================================================
-  KPV(Time &t, float kp) - constructor using a Time class and float kp value
+  KPV(aTime &t, float kp) - constructor using a aTime class and float kp value
   ============================================================================*/
-KPV::KPV(Time t, float kp){
+KPV::KPV(aTime t, float kp){
   KPV::t=t;
   KPV::kp=kp;
 }
@@ -49,9 +49,9 @@ KPV::~KPV(){
 
 
 /*=============================================================================
-  Time &getTime() - return time as a double
+  aTime &getTime() - return time as a double
   ============================================================================*/
-Time &KPV::getTime(){
+aTime &KPV::getTime(){
   return t;
 }
 
