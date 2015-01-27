@@ -1,3 +1,0 @@
-[submodule "lib/time"]
-	path = lib/time
-	url = https://github.com/amjjam/time.git
