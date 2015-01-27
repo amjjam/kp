@@ -33,6 +33,7 @@ public:
   ~KPS();
   int size();
   KPV &operator[](int i);
+  int find(aTime &t);
 private:
   void load(std::string);
   void load(std::vector<std::string>);
