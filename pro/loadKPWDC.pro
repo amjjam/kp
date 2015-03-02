@@ -21,9 +21,9 @@ function loadKPWDC,xfiles
 ;-
 
   template={yr:0l,mo:0l,dy:0l,hr:0l,epoch:0d,kp:0.}
-  n=1
+  n=1l
   d=[template]
-  i=0
+  i=0l
   line=''
 
   files=[xfiles]  
@@ -54,9 +54,9 @@ function loadKPWDC,xfiles
         endfor        
      endwhile
      free_lun,un
-     i--
-     d=d[0:i]
   endfor
+  i--
+  d=d[0:i]
   
   return,d
 end
